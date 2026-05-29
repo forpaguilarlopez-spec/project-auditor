@@ -36,6 +36,7 @@ export async function runAudit(projectPath: string): Promise<AuditResult> {
 
     return {
       projectPath: absolutePath,
+      projectName: path.basename(absolutePath),
       technologies,
       findings,
       generatedAt: new Date().toISOString(),
