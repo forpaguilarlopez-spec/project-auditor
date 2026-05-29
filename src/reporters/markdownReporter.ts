@@ -30,6 +30,7 @@ function buildMarkdownContent(result: AuditResult): string {
   const warningCount = result.findings.filter((finding) => finding.severity === "warning").length;
   const infoCount = result.findings.filter((finding) => finding.severity === "info").length;
   const qualityScore = calculateQualityScore(errorCount, warningCount);
+  const qualityLabel = getQualityLabel(qualityScore);
 
   const findings = buildFindingsSection(sortedFindings);
   const recommendations = buildRecommendationsSection(sortedFindings);
@@ -47,6 +48,7 @@ Proyecto analizado: **${result.projectName}**
 ## Puntuación
 
 Calidad estimada: **${qualityScore}/100**
+Nivel: **${qualityLabel}**
 
 ## Privacidad
 
@@ -112,4 +114,12 @@ function calculateQualityScore(errorCount: number, warningCount: number): number
   const score = 100 - errorCount * 15 - warningCount * 7;
 
   return Math.max(0, Math.min(100, score));
+}
+
+function getQualityLabel(score: number): string {
+  if (score >= 85) return "Excelente";
+  if (score >= 70) return "Buena";
+  if (score >= 50) return "Mejorable";
+
+  return "Crítica";
 }
