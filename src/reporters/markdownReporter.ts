@@ -29,6 +29,7 @@ function buildMarkdownContent(result: AuditResult): string {
   const errorCount = result.findings.filter((finding) => finding.severity === "error").length;
   const warningCount = result.findings.filter((finding) => finding.severity === "warning").length;
   const infoCount = result.findings.filter((finding) => finding.severity === "info").length;
+  const qualityScore = calculateQualityScore(errorCount, warningCount);
 
   const findings = buildFindingsSection(sortedFindings);
   const recommendations = buildRecommendationsSection(sortedFindings);
@@ -42,6 +43,10 @@ Proyecto analizado: **${result.projectName}**
 - Errores: ${errorCount}
 - Advertencias: ${warningCount}
 - Información: ${infoCount}
+
+## Puntuación
+
+Calidad estimada: **${qualityScore}/100**
 
 ## Privacidad
 
@@ -101,4 +106,10 @@ function getSeverityWeight(severity: FindingSeverity): number {
   if (severity === "error") return 3;
   if (severity === "warning") return 2;
   return 1;
+}
+
+function calculateQualityScore(errorCount: number, warningCount: number): number {
+  const score = 100 - errorCount * 15 - warningCount * 7;
+
+  return Math.max(0, Math.min(100, score));
 }
