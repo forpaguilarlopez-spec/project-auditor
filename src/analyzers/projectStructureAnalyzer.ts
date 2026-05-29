@@ -29,6 +29,8 @@ export async function analyzeProjectStructure(
         category: "structure",
         title: "Estructura mobile no encontrada",
         message: "No se ha encontrado src, app ni components en la raíz.",
+        recommendation:
+          "Revisa si el proyecto debería tener carpetas como app, src o components. Si usa Expo Router, normalmente app/ será una carpeta clave.",
       });
     }
   } else if (await existsDirectory(path.join(projectPath, "src"))) {
@@ -44,6 +46,8 @@ export async function analyzeProjectStructure(
       category: "structure",
       title: "Carpeta src no encontrada",
       message: "No se ha encontrado una carpeta src en la raíz del proyecto.",
+      recommendation:
+        "Valora organizar el código fuente dentro de una carpeta src para separar código de configuración, documentación y archivos auxiliares.",
     });
   }
 
@@ -65,6 +69,8 @@ export async function analyzeProjectStructure(
       category: "testing",
       title: "Carpeta de tests no encontrada",
       message: "No se ha encontrado tests, test ni __tests__ en la raíz.",
+      recommendation:
+        "Añade una carpeta tests, test o __tests__ para empezar a separar pruebas automáticas del código principal.",
     });
   }
 

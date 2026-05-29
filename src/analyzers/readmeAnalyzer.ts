@@ -15,6 +15,8 @@ export async function analyzeReadme(projectPath: string): Promise<Finding[]> {
         category: "documentation",
         title: "README no encontrado",
         message: "El proyecto no tiene README.md en la raíz.",
+        recommendation:
+          "Crea un README.md con una descripción del proyecto, instrucciones de instalación, uso, scripts disponibles y estado actual.",
       },
     ];
   }
@@ -30,6 +32,8 @@ export async function analyzeReadme(projectPath: string): Promise<Finding[]> {
         category: "documentation",
         title: "README vacío",
         message: "El archivo README.md existe, pero no tiene contenido.",
+        recommendation:
+          "Completa el README.md con el objetivo del proyecto, cómo instalarlo, cómo ejecutarlo y qué funcionalidades incluye.",
       },
     ];
   }
@@ -41,6 +45,8 @@ export async function analyzeReadme(projectPath: string): Promise<Finding[]> {
         category: "documentation",
         title: "README demasiado básico",
         message: `El README.md existe, pero parece insuficiente: ${lineCount} líneas útiles y ${trimmedContent.length} caracteres.`,
+        recommendation:
+          "Amplía el README.md añadiendo contexto del proyecto, requisitos, instalación, uso, scripts y decisiones técnicas relevantes.",
       },
     ];
   }

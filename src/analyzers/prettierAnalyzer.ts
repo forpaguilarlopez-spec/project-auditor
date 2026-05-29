@@ -49,6 +49,8 @@ export async function analyzePrettier(projectPath: string): Promise<Finding[]> {
         category: "general",
         title: "Prettier instalado sin configuración",
         message: `Prettier está declarado (${prettierVersion}), pero no se ha encontrado archivo de configuración.`,
+        recommendation:
+          "Añade un archivo de configuración como .prettierrc para que el formateo sea consistente entre entornos.",
       },
     ];
   }
@@ -60,6 +62,8 @@ export async function analyzePrettier(projectPath: string): Promise<Finding[]> {
         category: "general",
         title: "Configuración de Prettier sin dependencia",
         message: `Existe ${prettierConfigFile}, pero prettier no está declarado en package.json.`,
+        recommendation:
+          "Instala Prettier como dependencia de desarrollo para que la configuración pueda aplicarse de forma reproducible.",
       },
     ];
   }
@@ -70,6 +74,8 @@ export async function analyzePrettier(projectPath: string): Promise<Finding[]> {
       category: "general",
       title: "Prettier no encontrado",
       message: "No se ha encontrado prettier ni configuración de Prettier en el proyecto.",
+      recommendation:
+        "Instala Prettier y añade una configuración básica para mantener un formato consistente en todo el proyecto.",
     },
   ];
 }

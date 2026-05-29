@@ -30,6 +30,8 @@ export async function analyzePackageJson(projectPath: string): Promise<Finding[]
       category: "general",
       title: "Scripts no definidos",
       message: "El package.json no tiene scripts definidos.",
+      recommendation:
+        "Añade scripts básicos como dev, lint, test y typecheck para facilitar el desarrollo y la validación del proyecto.",
     });
 
     return findings;
@@ -41,6 +43,8 @@ export async function analyzePackageJson(projectPath: string): Promise<Finding[]
       category: "general",
       title: "Script lint no encontrado",
       message: "No se ha encontrado un script lint en package.json.",
+      recommendation:
+        "Añade un script lint para revisar estilo, errores comunes y reglas de calidad antes de subir cambios.",
     });
   } else {
     findings.push({
@@ -57,6 +61,8 @@ export async function analyzePackageJson(projectPath: string): Promise<Finding[]
       category: "testing",
       title: "Script test no encontrado",
       message: "No se ha encontrado un script test en package.json.",
+      recommendation:
+        "Añade un script test aunque al principio ejecute una suite mínima. Esto prepara el proyecto para crecer con más seguridad.",
     });
   } else {
     findings.push({
@@ -73,6 +79,8 @@ export async function analyzePackageJson(projectPath: string): Promise<Finding[]
       category: "typescript",
       title: "Script typecheck no encontrado",
       message: "No se ha encontrado un script typecheck en package.json.",
+      recommendation:
+        "Añade un script typecheck, por ejemplo tsc --noEmit, para validar TypeScript sin generar archivos de salida.",
     });
   } else {
     findings.push({

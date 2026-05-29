@@ -15,4 +15,5 @@ export type Finding = {
   category: FindingCategory;
   title: string;
   message: string;
+  recommendation?: string;
 };

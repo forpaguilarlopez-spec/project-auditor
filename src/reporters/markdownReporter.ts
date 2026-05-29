@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { AuditResult } from "../types/audit.js";
-import type { FindingSeverity } from "../types/finding.js";
+import type { Finding, FindingSeverity } from "../types/finding.js";
 
 export async function generateMarkdownReport(
   result: AuditResult,
@@ -30,15 +30,8 @@ function buildMarkdownContent(result: AuditResult): string {
   const warningCount = result.findings.filter((finding) => finding.severity === "warning").length;
   const infoCount = result.findings.filter((finding) => finding.severity === "info").length;
 
-  const findings =
-    sortedFindings.length > 0
-      ? sortedFindings
-          .map(
-            (finding) =>
-              `- **${finding.severity.toUpperCase()}** [${finding.category}] ${finding.title}: ${finding.message}`,
-          )
-          .join("\n")
-      : "No se han detectado hallazgos todavía.";
+  const findings = buildFindingsSection(sortedFindings);
+  const recommendations = buildRecommendationsSection(sortedFindings);
 
   return `# Informe de auditoría
 
@@ -62,10 +55,46 @@ ${technologies}
 
 ${findings}
 
+## Recomendaciones
+
+${recommendations}
+
 ## Generado
 
 \`${result.generatedAt}\`
 `;
+}
+
+function buildFindingsSection(findings: Finding[]): string {
+  if (findings.length === 0) {
+    return "No se han detectado hallazgos todavía.";
+  }
+
+  return findings
+    .map(
+      (finding) =>
+        `- **${finding.severity.toUpperCase()}** [${finding.category}] ${finding.title}: ${finding.message}`,
+    )
+    .join("\n");
+}
+
+function buildRecommendationsSection(findings: Finding[]): string {
+  const actionableFindings = findings.filter(
+    (finding) => finding.severity !== "info" && finding.recommendation,
+  );
+
+  if (actionableFindings.length === 0) {
+    return "No hay recomendaciones pendientes.";
+  }
+
+  return actionableFindings
+    .map(
+      (finding) =>
+        `### ${finding.title}
+
+${finding.recommendation}`,
+    )
+    .join("\n\n");
 }
 
 function getSeverityWeight(severity: FindingSeverity): number {

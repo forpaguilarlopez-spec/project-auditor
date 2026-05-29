@@ -30,6 +30,8 @@ export async function analyzeDependencies(
       category: "typescript",
       title: "TypeScript no encontrado en dependencias",
       message: "El proyecto parece usar TypeScript, pero no declara typescript en package.json.",
+      recommendation:
+        "Instala TypeScript como dependencia de desarrollo para que el proyecto sea reproducible en otros entornos: npm install -D typescript.",
     });
   }
 
@@ -39,6 +41,8 @@ export async function analyzeDependencies(
       category: "general",
       title: "ESLint no encontrado",
       message: "No se ha encontrado eslint en dependencies ni devDependencies.",
+      recommendation:
+        "Instala y configura ESLint para detectar errores, inconsistencias y malas prácticas durante el desarrollo.",
     });
   } else {
     findings.push({
@@ -57,6 +61,8 @@ export async function analyzeDependencies(
       category: "testing",
       title: "Runner de tests no encontrado",
       message: "No se ha encontrado jest ni vitest en dependencies/devDependencies.",
+      recommendation:
+        "Añade un runner de tests como Vitest o Jest para poder automatizar pruebas y validar cambios con confianza.",
     });
   } else {
     findings.push({
