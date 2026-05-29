@@ -1,0 +1,26 @@
+{
+  "name": "project-auditor",
+  "version": "0.1.0",
+  "description": "CLI local y extensible para auditar proyectos software.",
+  "type": "module",
+  "bin": {
+    "project-auditor": "./src/cli/index.ts"
+  },
+  "scripts": {
+    "dev": "tsx src/cli/index.ts",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "ora": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
